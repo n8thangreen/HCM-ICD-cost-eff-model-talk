@@ -111,7 +111,7 @@ HCM is the most common heritable cardiac condition and is the most common cause 
 
 Symptoms include: Shortness of breath, Chest pain, Fainting, Palpitations
 
-## Implantable Cardioverter-Defibrillator (ICD)
+## Implantable Cardioverter-Defibrillator (ICD) :zap:
 
 ::::: columns
 ::: {.column width="60%"}
@@ -129,6 +129,7 @@ An ICD is a small battery-powered device placed under the skin—usually near th
 ::: {align="center"}
 ![](previous-paper.png)
 :::
+@omahony2014novel
 
 ## Problem
 
@@ -170,23 +171,28 @@ $$
 \end{align*}
 $$
 
+::: {.callout-note}
+## Risk Calculator
 $$
 \begin{equation*}
 \hat{P}_{\text{SCD at 5 years}} = 1 - 0.998^{\exp(\text{PI})}
 \end{equation*}
 $$
+:::
 
 ## Impact on Decision-Making
 
 ![](impact-on-decisionmaking-barplots.png)
 
-# CE Modelling Using Prediction Model :talking:
+# CE Modelling Using Prediction Model :balance_scale:
 
 ## 
 
 ::: {align="center"}
 ![](current-paper.png)
 :::
+
+@green2024cost
 
 ##
 
@@ -226,10 +232,20 @@ $$
 
 Denote $x$ as the observed number of transitions, $p$ the probability of a transition and $n$ as the total number of transitions from a given state. The hyperparameters $\alpha$ characterise the prior knowledge on $p$. Superscripts indicate the decision rule used.
 
+::: {.callout-note}
+## Likelihood
 $$
 \begin{align*}
 x_{i.}^{(1)} &\sim \text{Multinomial}\left(p_{i.}^{(1)}, n_{i}^{(1)}\right), \quad i = 1, 3 \\
 x_{i.}^{(2)} &\sim \text{Multinomial}\left(p_{i.}^{(2)}, n_{i}^{(2)}\right), \quad i = 1, 3 \\[1em]
+\end{align*}
+$$
+:::
+
+::: {.callout-note}
+## Priors
+$$
+\begin{align*}
 p_{i.}^{(1)} &\sim \text{Dirichlet}(\alpha^{(1)}), \quad i = 1, 3 \\
 p_{i.}^{(2)} &\sim \text{Dirichlet}(\alpha^{(2)}), \quad i = 1, 3
 \end{align*}
@@ -243,6 +259,7 @@ p_{ij}^{(s)} = \begin{cases}
 0 & \text{if } i \neq j 
 \end{cases}
 $$
+:::
 
 ## DAG
 
@@ -251,6 +268,10 @@ $$
 ## State Transition Probability Posterior Distributions
 
 ![](state-occupancy-posteriors.png)
+
+## Posterior Predictive Checks
+
+![](posterior_predictive_checks.png)
 
 ## Trace Plots
 
@@ -290,16 +311,49 @@ $$
 ![](ceacs-u_icd.png)
 
 
-# Current & Future Work
+# Future Work :rocket:
 
 ## Subcutaneous ICD (S-ICD)
 
+- **Structural Model Extension:** Adapt the existing Markov framework to differentiate between Transvenous (TV-ICD) and Subcutaneous (S-ICD) devices.
+
+- **Differential Cost-Effectiveness:** Evaluate the economic trade-off between the [higher upfront capital costs of S-ICDs against the potential long-term savings]{style="color: blue;"}.
+
+- **Subgroup Stratification:** Younger cohorts?
+
+## Markov Models with Device Replacement
+
+![](model_diagram_tunnel.png)
+
 ## Expected Value of Partial Perfect Information (EVPPI)
+
+**From Model Uncertainty to Decision Uncertainty**
+
+* **Transition to EVPPI:** Shift the focus from global variance sensitivity to the Expected Value of Partial Perfect Information (EVPPI).
+* **Isolate Decision Drivers:** Identify which specific clinical parameters (e.g., LV wall thickness coefficients, baseline hazards) actively cause patients to cross the 6% 5-year risk threshold and [alter the ICD implantation decision]{style="color: blue;"}. 
+* **Quantify Research Value:** Calculate the maximum expected Net Monetary Benefit (NMB) of resolving uncertainty for these high-impact parameters to [prioritize future clinical data collection]{style="color: blue;"}.
+
+## Expected Value of Partial Perfect Information (EVPPI)
+
+For a specific parameter of interest ($X_i$) is calculated as:
+
+::: {.callout-important}
+## EVPPI
+$$
+\text{EVPPI}_{X_i} = E_{X_i} \left[ \max_{d \in \{0, 1\}} E_{\boldsymbol{X}_{\sim i}} \left[ \text{NMB}(d, X_i, \boldsymbol{X}_{\sim i}) \right] \right] - \max_{d \in \{0, 1\}} E_{\boldsymbol{\theta}} \left[ \text{NMB}(d, \boldsymbol{\theta}) \right]
+$$
+:::
+
+* $X_i$: The specific parameter of interest (e.g., LV wall thickness coefficient).
+* $\boldsymbol{X}_{\sim i}$: All other uncertain parameters in the model.
+* $d \in \{0, 1\}$: The binary clinical decision (Implant ICD).
+* $\text{NMB}$: Net Monetary Benefit.
 
 
 ## Cumulative Incidence Functions (CIFs)
 
-#### Fine-Gray Model (Subdistribution Hazards)
+::: {.callout-important}
+## Fine-Gray Model (Subdistribution Hazards)
 
 - $\hat{H}_{SCD}(5)$ is the baseline cumulative subdistribution hazard at 5 years.
 - $PI_{FG}$ represents the linear predictor re-fitted using a Fine-Gray penalty/weights.
@@ -309,12 +363,14 @@ $$
 \text{CIF}_{\text{SCD}}^{\text{FG}}(5) = 1 - \exp\left(-\hat{H}_{\text{SCD}}(5) \exp(\text{PI}_{\text{FG}})\right)
 \end{equation*}
 $$
+:::
 
-#### Cause-Specific Model
+::: {.callout-important}
+## Cause-Specific Model
 
 - Requires the integration of cause-specific hazards for SCD and all other competing events.
 
-::: {style="font-size: 75%;"}
+<!-- ::: {style="font-size: 75%;"} -->
 $$
 % \hat{h}_{SCD}(t) and \hat{h}_{Other}(t) are the baseline hazards at time t.
 % PI_{cs,SCD} and PI_{cs,Other} are the linear predictors from their respective Cox models.
@@ -322,26 +378,29 @@ $$
 \text{CIF}_{\text{SCD}}^{\text{cs}}(5) = \int_{0}^{5} \hat{h}_{\text{SCD}}(u) \exp(\text{PI}_{\text{cs,SCD}}) \exp\left(-\int_{0}^{u} \left[ \hat{h}_{\text{SCD}}(s) \exp(\text{PI}_{\text{cs,SCD}}) + \hat{h}_{\text{Other}}(s) \exp(\text{PI}_{\text{cs,Other}}) \right] ds\right) du
 \end{equation*}
 $$
+<!-- ::: -->
 :::
 
-## Congeniality sensitivity in imputation {visibility="hidden"}
+<!-- ## Congeniality sensitivity in imputation {visibility="hidden"} -->
 
-::: r-stack
-![](ame_forest_group_plot_piaac_imp_outcome.png){.fragment width="80%" fig-align="center"}
+<!-- ::: r-stack -->
+<!-- ![](ame_forest_group_plot_piaac_imp_outcome.png){.fragment width="80%" fig-align="center"} -->
 
-![](ame_forest_group_plot_piaac_imp_diluted_0.5.png){.fragment width="80%" fig-align="center"}
+<!-- ![](ame_forest_group_plot_piaac_imp_diluted_0.5.png){.fragment width="80%" fig-align="center"} -->
 
-![](ame_forest_group_plot_piaac_imp_diluted_1.png){.fragment width="80%" fig-align="center"}
-:::
-
+<!-- ![](ame_forest_group_plot_piaac_imp_diluted_1.png){.fragment width="80%" fig-align="center"} -->
+<!-- ::: -->
 
 
 ## Conclusions
 
-- The j
+- **Individualized Risk Stratification:** The novel risk prediction model provides individualized 5-year probabilities for Sudden Cardiac Death, offering a [more precise tool for clinical decision-making]{style="color: blue;"} than previous crude guidelines.
 
+- **Robust Economic Evaluation:** By embedding this prediction model within a Bayesian discrete-time Markov framework, we can [formally quantify the cost-effectiveness]{style="color: blue;"} of different ICD implantation thresholds under real-world uncertainty. 
 
-## 
+- **Future Work:** 
+  * Shifting from model uncertainty to decision uncertainty (EVPPI) will provide a more rigorous foundation for prioritizing future data collection
+  * State-of-the-art device evaluation (e.g., S-ICDs).
 
 # Thanks :thankyou:
 

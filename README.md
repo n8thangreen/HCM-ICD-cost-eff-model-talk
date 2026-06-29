@@ -1,4 +1,4 @@
-﻿# data-science-in-health-talk
+# HCM ICD cost eff model talk
 
-Slides [here](https://n8thangreen.github.io/data-science-in-health-talk/#/title-slide).
+Slides [here](https://n8thangreen.github.io/HCM-ICD-cost-eff-model-talk/#/title-slide).
 
