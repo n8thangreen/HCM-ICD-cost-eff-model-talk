@@ -1,0 +1,205 @@
+/*-- scss:defaults --*/
+  
+  // UCL Brand Colors (replace with actual HEX codes from UCL Brand Guidelines)
+$ucl-blue: #1C2B4E; // Example - find official UCL blue
+  $ucl-red: #E60000;  // Example - find official UCL red
+  $ucl-light-grey: #F0F0F0; // Example
+  $ucl-dark-grey: #333333; // Example
+  
+  // Fonts (replace with official UCL fonts or closest web-safe alternatives)
+$font-family-sans-serif: "Arial", sans-serif; // Or specific UCL font
+$presentation-heading-font: "Arial", sans-serif; // Often the same or similar
+
+// Body background and text color
+$body-bg: white;
+$body-color: $ucl-dark-grey;
+
+// Link color
+$link-color: $ucl-blue;
+
+// Heading colors
+$presentation-heading-color: $ucl-blue; // For primary slide titles
+
+/*-- scss:rules --*/
+  
+  // General Reveal.js styling
+.reveal {
+  font-family: $font-family-sans-serif;
+  font-size: 2.2em; // Default was usually 1em or 16px. 0.9em makes it 90% of base.
+  color: $body-color;
+}
+
+// Slide Titles (H1s)
+.reveal h1 {
+  color: $presentation-heading-color;
+  //font-size: 40px;
+  font-size: 1.0em;
+  //text-transform: uppercase; // UCL often uses uppercase for main titles
+  //margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+// Subtitles (H2s)
+.reveal h2 {
+  color: $ucl-blue; // Or a different accent color
+  font-size: 1.3em;
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+
+// Other headings
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  color: $ucl-dark-grey;
+}
+
+// Top Bar (similar to Beamer top bar)
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45px; // Adjust height based on UCL logo/header size
+  background-color: $ucl-blue; // UCL primary color
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+  font-size: 1.1em;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); // Subtle shadow
+}
+
+.top-bar .ucl-logo {
+  height: 30px; // Adjust logo height
+  margin-right: 15px;
+}
+
+.top-bar .presentation-title {
+  font-weight: bold;
+  flex-grow: 1; // Allows title to take available space
+  font-family: "Arial", sans-serif; /* Or another specific sans-serif font like "Helvetica", "Verdana" */
+}
+
+.top-bar .author-info {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+// Bottom Bar
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px; // Adjust height
+  background-color: $ucl-light-grey; // Or $ucl-blue depending on design
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; // Align slide number/footer to right
+  padding: 0 20px;
+  color: $ucl-dark-grey;
+  font-size: 0.8em;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1); // Subtle shadow
+}
+
+// Adjust slide content positioning to not be hidden by bars
+.reveal .slides {
+  margin-top: 25px; // Space for the top bar
+  margin-bottom: 30px; // Space for the bottom bar
+  height: calc(100% - 75px); // Total height minus bars
+}
+
+//// Styling for default Reveal.js slide number
+//.reveal .slide-number {
+//  position: static; // Override default fixed position
+//  margin: 0;
+//  padding: 0;
+//  background: none;
+//  color: inherit; // Inherit color from bottom-bar
+//}
+
+// Hide default Reveal.js controls if you want a cleaner look
+.reveal .controls {
+  display: none;
+}
+.reveal .progress {
+  display: none;
+}
+
+// Specific classes for content (optional)
+.reveal .section-title {
+  font-size: 2em;
+  color: $ucl-blue;
+  text-align: center;
+}
+
+.reveal .logo-on-slide {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  height: 50px; // Adjust size
+  opacity: 0.7; // Optional: make it subtle
+}
+
+/* Optional: Callout styling if you use them */
+/*  .callout {
+    border-left: 5px solid $ucl-blue;
+    background-color: rgba($ucl-blue, 0.1);
+    padding: 10px 15px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  } */
+
+/* --- Make code text bigger (Increased specificity) --- */
+.reveal pre code { /* Targets code INSIDE pre tags, which is common for code blocks */
+    font-size: 1.0em !important; /* Adding !important to ensure it overrides */
+}
+
+.reveal code:not(pre code) { /* Targets inline code but NOT code inside pre (if you want different sizes) */
+    font-size: 0.95em !important; /* Slightly larger than body text but smaller than block code */
+}
+
+/* Structural Beamer Box Container */
+.beamer-box {
+  display: flow-root !important; /* Forces the box to contain all internal block heights */
+  position: relative !important;
+  background-color: rgba(0, 75, 110, 0.05); 
+  border: 1px solid #004b6e;                  
+  border-radius: 10px;                        
+  padding: 15px 20px 15px 35px; /* Keeps bullets safely inside the borders */
+  margin: 20px 0 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);  
+}
+
+/* Fixes list alignment and forces block flow inside the container */
+.beamer-box ul, .beamer-box ol {
+  margin-left: 0.5em !important;
+  padding-left: 1em !important;
+  display: block !important;
+}
+
+/* Ensures incremental fragments don't break vertical flow layout */
+.beamer-box .fragment {
+  position: relative !important;
+  visibility: visible !important; /* Prevents layout collapse while hidden */
+}
+
+.beamer-box h3 {
+  color: #004b6e;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(0, 75, 110, 0.2);
+  padding-bottom: 5px;
+}
+
+/* Apply rounded corners and clean borders to all Quarto callouts */
+.reveal .callout {
+  border-radius: 12px !important;
+  border-left-width: 5px !important; /* Thick accent bar on the left */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
