@@ -63,7 +63,6 @@ bibliography: mybib.bib
 - Current & Future Work
 - Conclusion
 
-
 :::: fragment
 ::: callout-note
 ## Resources
@@ -93,12 +92,17 @@ Remember to introduce myself and the topic here. emerging approaches at the inte
 <!-- ## Available data -->
 
 <!-- ::: {.beamer-box} -->
+
 <!-- ### Core Registries -->
 
 <!-- - **Skills for Life (SfL) Survey 2011** \[[MR]{style="color: blue;"}P\] -->
+
 <!--   - Comprehensive computer-based assessment conducted by the ONS -->
+
 <!-- - **Newham Residents Survey 2023 (NRS)** \[MR[P]{style="color: blue;"}\] -->
+
 <!--   - Detailed information on views, experiences, and needs of Newham residents -->
+
 <!-- ::: -->
 
 # Background
@@ -123,17 +127,17 @@ An ICD is a small battery-powered device placed under the skin—usually near th
 :::
 :::::
 
-
 ## Previous work
 
 ::: {align="center"}
 ![](previous-paper.png)
 :::
+
 @omahony2014novel
 
 ## Problem
 
-- [Hypertrophic cardiomyopathy (HCM)]{style="color: blue;"} is a leading cause of [sudden cardiac death (SCD)]{style="color: blue;"} in young adults. Current risk algorithms provide only a crude estimate of risk and fail to account for the different effect size of individual risk factors. 
+- [Hypertrophic cardiomyopathy (HCM)]{style="color: blue;"} is a leading cause of [sudden cardiac death (SCD)]{style="color: blue;"} in young adults. Current risk algorithms provide only a crude estimate of risk and fail to account for the different effect size of individual risk factors.
 
 - The aim of this study was to develop and validate a new SCD risk prediction model that provides [individualized risk estimates]{style="color: blue;"}.
 
@@ -147,20 +151,19 @@ An ICD is a small battery-powered device placed under the skin—usually near th
 
 - The cohort consisted of [3675 patients from six centres]{style="color: blue;"}. During a follow-up period of 24,313 patient-years (median 5.7 years), 198 patients (5%) died suddenly or had an appropriate ICD shock.
 
-- Of eight pre-specified predictors, associated with SCD/appropriate ICD shock at the 15% significance level 
-[age, maximal left ventricular wall thickness, left atrial diameter, left ventricular outflow tract gradient, family history of SCD, non-sustained ventricular tachycardia, and unexplained syncope]{style="color: blue;"}
+- Of eight pre-specified predictors, associated with SCD/appropriate ICD shock at the 15% significance level [age, maximal left ventricular wall thickness, left atrial diameter, left ventricular outflow tract gradient, family history of SCD, non-sustained ventricular tachycardia, and unexplained syncope]{style="color: blue;"}
 
 - final model to estimate individual [probabilities of SCD at 5 years]{style="color: blue;"}.
-  - For every 16 ICDs implanted in patients with ≥4% 5-year SCD risk, potentially 1 patient will be saved from SCD at 5 years.
 
+  - For every 16 ICDs implanted in patients with ≥4% 5-year SCD risk, potentially 1 patient will be saved from SCD at 5 years.
 
 ## Standard Failure Probability
 
 Define the Prognostic Index (PI) using the coefficients from the standard Cox model
 
 $$
-\begin{align*}
-\text{PI}_{\text{Naive}} &= 0.159 \times \text{Maximal wall thickness} \\
+\begin{align}
+\text{PI} &= 0.159 \times \text{Maximal wall thickness} \\
 &\quad - 0.003 \times \text{Maximal wall thickness}^2 \\
 &\quad + 0.026 \times \text{Left atrial diameter} \\
 &\quad + 0.004 \times \text{Maximal LVOT gradient} \\
@@ -168,15 +171,14 @@ $$
 &\quad + 0.826 \times \text{NSVT} \\
 &\quad + 0.717 \times \text{Unexplained syncope} \\
 &\quad - 0.018 \times \text{Age}
-\end{align*}
+\end{align}
 $$
 
-::: {.callout-note}
+::: callout-note
 ## Risk Calculator
+
 $$
-\begin{equation*}
 \hat{P}_{\text{SCD at 5 years}} = 1 - 0.998^{\exp(\text{PI})}
-\end{equation*}
 $$
 :::
 
@@ -194,17 +196,19 @@ $$
 
 @green2024cost
 
-##
+## 
 
 #### Aims
+
 - To conduct a contemporary cost-effectiveness analysis examining the use of implantable cardioverter defibrillators (ICDs) for primary prevention in patients with hypertrophic cardiomyopathy (HCM)
 
 #### Methods
 
-- A [discrete-time Markov model]{style="color: blue;"} was used to determine the cost-effectiveness of different ICD decision-making rules for implantation. 
-- Several scenarios were investigated, including the reference scenario of implantation rates according to observed real-world practice. 
+- A [discrete-time Markov model]{style="color: blue;"} was used to determine the cost-effectiveness of different ICD decision-making rules for implantation.
 
-- A [12-year time horizon]{style="color: blue;"} with an annual cycle length was used. 
+- Several scenarios were investigated, including the reference scenario of implantation rates according to observed real-world practice.
+
+- A [12-year time horizon]{style="color: blue;"} with an annual cycle length was used.
 
 - Transition probabilities used in the model were obtained using [Bayesian analysis]{style="color: blue;"}.
 
@@ -218,47 +222,42 @@ $$
 
 ## Transition Probability Matrix
 
-$$
-\begin{pmatrix}
+$$\begin{pmatrix}
 p_{11}^s & p_{12}^s & 0 & 0 & p_{15}^s \\
 1 - p_{15}^s & 0 & 0 & 0 & p_{15}^s \\
 0 & 0 & p_{33} & p_{34}^s & p_{35}^s \\
 0 & 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 0 & 1
-\end{pmatrix}
-$$
+\end{pmatrix}$$
 
 ## Model Equations
 
 Denote $x$ as the observed number of transitions, $p$ the probability of a transition and $n$ as the total number of transitions from a given state. The hyperparameters $\alpha$ characterise the prior knowledge on $p$. Superscripts indicate the decision rule used.
 
-::: {.callout-note}
+::: callout-note
 ## Likelihood
-$$
-\begin{align*}
+
+$$\begin{align}
 x_{i.}^{(1)} &\sim \text{Multinomial}\left(p_{i.}^{(1)}, n_{i}^{(1)}\right), \quad i = 1, 3 \\
 x_{i.}^{(2)} &\sim \text{Multinomial}\left(p_{i.}^{(2)}, n_{i}^{(2)}\right), \quad i = 1, 3 \\[1em]
-\end{align*}
+\end{align}
 $$
 :::
 
-::: {.callout-note}
+::: callout-note
 ## Priors
-$$
-\begin{align*}
+
+$$\begin{align}
 p_{i.}^{(1)} &\sim \text{Dirichlet}(\alpha^{(1)}), \quad i = 1, 3 \\
 p_{i.}^{(2)} &\sim \text{Dirichlet}(\alpha^{(2)}), \quad i = 1, 3
-\end{align*}
-$$
+\end{align}$$
 
 For all final sink states,
 
-$$
-p_{ij}^{(s)} = \begin{cases} 
+$$p_{ij}^{(s)} = \begin{cases} 
 1 & \text{if } i = j \\ 
 0 & \text{if } i \neq j 
-\end{cases}
-$$
+\end{cases}$$
 :::
 
 ## DAG
@@ -295,9 +294,7 @@ $$
 ::: {.column width="40%"}
 (main effect / first-order Sobol index)
 
-$$
-S_i = \frac{V_{X_i}(E_{\mathbf{X}_{\sim i}}(Y \mid X_i))}{V(Y)}
-$$
+$$S_i = \frac{V_{X_i}(E_{\mathbf{X}_{\sim i}}(Y \mid X_i))}{V(Y)}$$
 
 - $Y$ is the model output.
 - $X_i$ is the specific input parameter of interest.
@@ -309,7 +306,6 @@ $$
 ## Cost-Effectiveness Acceptability Curves for ICD Costs
 
 ![](ceacs-u_icd.png)
-
 
 # Future Work :rocket:
 
@@ -329,78 +325,83 @@ $$
 
 **From Model Uncertainty to Decision Uncertainty**
 
-* **Transition to EVPPI:** Shift the focus from global variance sensitivity to the Expected Value of Partial Perfect Information (EVPPI).
-* **Isolate Decision Drivers:** Identify which specific clinical parameters (e.g., LV wall thickness coefficients, baseline hazards) actively cause patients to cross the 6% 5-year risk threshold and [alter the ICD implantation decision]{style="color: blue;"}. 
-* **Quantify Research Value:** Calculate the maximum expected Net Monetary Benefit (NMB) of resolving uncertainty for these high-impact parameters to [prioritize future clinical data collection]{style="color: blue;"}.
+- **Transition to EVPPI:** Shift the focus from global variance sensitivity to the Expected Value of Partial Perfect Information (EVPPI).
+- **Isolate Decision Drivers:** Identify which specific clinical parameters (e.g., LV wall thickness coefficients, baseline hazards) actively cause patients to cross the 6% 5-year risk threshold and [alter the ICD implantation decision]{style="color: blue;"}.
+- **Quantify Research Value:** Calculate the maximum expected Net Monetary Benefit (NMB) of resolving uncertainty for these high-impact parameters to [prioritize future clinical data collection]{style="color: blue;"}.
 
 ## Expected Value of Partial Perfect Information (EVPPI)
 
 For a specific parameter of interest ($X_i$) is calculated as:
 
-::: {.callout-important}
+::: callout-important
 ## EVPPI
-$$
-\text{EVPPI}_{X_i} = E_{X_i} \left[ \max_{d \in \{0, 1\}} E_{\boldsymbol{X}_{\sim i}} \left[ \text{NMB}(d, X_i, \boldsymbol{X}_{\sim i}) \right] \right] - \max_{d \in \{0, 1\}} E_{\boldsymbol{\theta}} \left[ \text{NMB}(d, \boldsymbol{\theta}) \right]
-$$
+
+$$\text{EVPPI}_{X_i} = E_{X_i} \left[ \max_{d \in \{0, 1\}} E_{\boldsymbol{X}_{\sim i}} \left[ \text{NMB}(d, X_i, \boldsymbol{X}_{\sim i}) \right] \right] - \max_{d \in \{0, 1\}} E_{\boldsymbol{\theta}} \left[ \text{NMB}(d, \boldsymbol{\theta}) \right]$$
 :::
 
-* $X_i$: The specific parameter of interest (e.g., LV wall thickness coefficient).
-* $\boldsymbol{X}_{\sim i}$: All other uncertain parameters in the model.
-* $d \in \{0, 1\}$: The binary clinical decision (Implant ICD).
-* $\text{NMB}$: Net Monetary Benefit.
-
+- $X_i$: The specific parameter of interest (e.g., LV wall thickness coefficient).
+- $\boldsymbol{X}_{\sim i}$: All other uncertain parameters in the model.
+- $d \in \{0, 1\}$: The binary clinical decision (Implant ICD).
+- $\text{NMB}$: Net Monetary Benefit.
 
 ## Cumulative Incidence Functions (CIFs)
 
-::: {.callout-important}
+::: callout-important
 ## Fine-Gray Model (Subdistribution Hazards)
 
 - $\hat{H}_{SCD}(5)$ is the baseline cumulative subdistribution hazard at 5 years.
 - $PI_{FG}$ represents the linear predictor re-fitted using a Fine-Gray penalty/weights.
 
 $$
-\begin{equation*}
 \text{CIF}_{\text{SCD}}^{\text{FG}}(5) = 1 - \exp\left(-\hat{H}_{\text{SCD}}(5) \exp(\text{PI}_{\text{FG}})\right)
-\end{equation*}
 $$
 :::
 
-::: {.callout-important}
+::: callout-important
 ## Cause-Specific Model
 
 - Requires the integration of cause-specific hazards for SCD and all other competing events.
 
 <!-- ::: {style="font-size: 75%;"} -->
+
 $$
-% \hat{h}_{SCD}(t) and \hat{h}_{Other}(t) are the baseline hazards at time t.
-% PI_{cs,SCD} and PI_{cs,Other} are the linear predictors from their respective Cox models.
-\begin{equation*}
+\hat{h}_{SCD}(t) \text{ and } \hat{h}_{Other}(t)
+$$
+are the baseline hazards at time t.
+
+
+$$
+PI_{cs,SCD} \text{ and } PI_{cs,Other}
+$$
+are the linear predictors from their respective Cox models.
+
+$$
 \text{CIF}_{\text{SCD}}^{\text{cs}}(5) = \int_{0}^{5} \hat{h}_{\text{SCD}}(u) \exp(\text{PI}_{\text{cs,SCD}}) \exp\left(-\int_{0}^{u} \left[ \hat{h}_{\text{SCD}}(s) \exp(\text{PI}_{\text{cs,SCD}}) + \hat{h}_{\text{Other}}(s) \exp(\text{PI}_{\text{cs,Other}}) \right] ds\right) du
-\end{equation*}
-$$
-<!-- ::: -->
+$$ <!-- ::: -->
 :::
 
 <!-- ## Congeniality sensitivity in imputation {visibility="hidden"} -->
 
 <!-- ::: r-stack -->
+
 <!-- ![](ame_forest_group_plot_piaac_imp_outcome.png){.fragment width="80%" fig-align="center"} -->
 
 <!-- ![](ame_forest_group_plot_piaac_imp_diluted_0.5.png){.fragment width="80%" fig-align="center"} -->
 
 <!-- ![](ame_forest_group_plot_piaac_imp_diluted_1.png){.fragment width="80%" fig-align="center"} -->
-<!-- ::: -->
 
+<!-- ::: -->
 
 ## Conclusions
 
 - **Individualized Risk Stratification:** The novel risk prediction model provides individualized 5-year probabilities for Sudden Cardiac Death, offering a [more precise tool for clinical decision-making]{style="color: blue;"} than previous crude guidelines.
 
-- **Robust Economic Evaluation:** By embedding this prediction model within a Bayesian discrete-time Markov framework, we can [formally quantify the cost-effectiveness]{style="color: blue;"} of different ICD implantation thresholds under real-world uncertainty. 
+- **Robust Economic Evaluation:** By embedding this prediction model within a Bayesian discrete-time Markov framework, we can [formally quantify the cost-effectiveness]{style="color: blue;"} of different ICD implantation thresholds under real-world uncertainty.
 
-- **Future Work:** 
-  * Shifting from model uncertainty to decision uncertainty (EVPPI) will provide a more rigorous foundation for prioritizing future data collection
-  * State-of-the-art device evaluation (e.g., S-ICDs).
+- **Future Work:**
+
+  - Shifting from model uncertainty to decision uncertainty (EVPPI) will provide a more rigorous foundation for prioritizing future data collection
+  - State-of-the-art device evaluation (e.g., S-ICDs).
 
 # Thanks :thankyou:
 
